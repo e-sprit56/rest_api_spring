@@ -9,4 +9,6 @@ public interface BookService {
     void addBook(Book book);
 
     List<Book> getBooks();
+
+    boolean deleteBook(int id);
 }

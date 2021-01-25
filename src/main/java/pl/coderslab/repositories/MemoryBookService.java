@@ -33,4 +33,9 @@ public class MemoryBookService implements BookService {
     public List<Book> getBooks() {
         return list;
     }
+
+    @Override
+    public boolean deleteBook(int id) {
+        return list.removeIf(book -> book.getId() == id);
+    }
 }
