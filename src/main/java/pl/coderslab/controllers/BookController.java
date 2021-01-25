@@ -1,10 +1,13 @@
 package pl.coderslab.controllers;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import pl.coderslab.models.Book;
 import pl.coderslab.repositories.BookService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/books")
@@ -24,7 +27,7 @@ public class BookController {
 
     @GetMapping("")
     public List<Book> getList() {
-        return bookService.getBooks();
+        return bookService.getAllBooks();
     }
 
     @PostMapping("")
@@ -36,6 +39,12 @@ public class BookController {
     public void deleteBook(@PathVariable("id") int id){
         bookService.deleteBook(id);
 
+    }
+
+    @GetMapping("/{id}")
+    public Book getBook(@PathVariable("id") int id){
+        return bookService.getBook(id).orElseThrow(()-> {throw new ResponseStatusException(HttpStatus.NOT_FOUND, "book not found");
+        });
     }
 
 

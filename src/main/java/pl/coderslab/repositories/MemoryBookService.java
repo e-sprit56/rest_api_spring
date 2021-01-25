@@ -5,6 +5,7 @@ import pl.coderslab.models.Book;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class MemoryBookService implements BookService {
@@ -30,12 +31,17 @@ public class MemoryBookService implements BookService {
     }
 
     @Override
-    public List<Book> getBooks() {
+    public List<Book> getAllBooks() {
         return list;
     }
 
     @Override
     public boolean deleteBook(int id) {
         return list.removeIf(book -> book.getId() == id);
+    }
+
+    @Override
+    public Optional<Book> getBook(int id) {
+        return list.stream().filter(book -> book.getId()==id).findFirst();
     }
 }
