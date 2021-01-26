@@ -35,6 +35,7 @@ public class BookController {
         bookService.addBook(book);
     }
 
+
     @DeleteMapping("/{id}")
     public void deleteBook(@PathVariable("id") int id){
         bookService.deleteBook(id);
@@ -43,8 +44,17 @@ public class BookController {
 
     @GetMapping("/{id}")
     public Book getBook(@PathVariable("id") int id){
-        return bookService.getBook(id).orElseThrow(()-> {throw new ResponseStatusException(HttpStatus.NOT_FOUND, "book not found");
-        });
+
+        if(bookService.getBook(id).isPresent()){
+            return bookService.getBook(id).get();
+        }
+        return new Book();
+
+    }
+
+    @PutMapping("")
+    public void updateBook(@RequestBody Book book){
+        bookService.update(book);
     }
 
 

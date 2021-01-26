@@ -11,7 +11,9 @@ public interface BookService {
 
     List<Book> getAllBooks();
 
-    boolean deleteBook(int id);
+    boolean deleteBook(long id);
 
-    Optional<Book> getBook(int id);
+    Optional<Book> getBook(long id);
+
+    void update (Book book);
 }
