@@ -45,10 +45,9 @@ public class BookController {
     @GetMapping("/{id}")
     public Book getBook(@PathVariable("id") int id){
 
-        if(bookService.getBook(id).isPresent()){
-            return bookService.getBook(id).get();
-        }
-        return new Book();
+        return  bookService.getBook(id).orElseThrow(()->{
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        });
 
     }
 
